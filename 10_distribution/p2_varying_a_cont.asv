@@ -1,0 +1,30 @@
+clear
+close all
+
+series_length = 200;
+eta = 200;
+AC_using_method = "Fourier";
+AMI_using_method = "kraskov2";
+step_AC = 1;
+step_AMI = 1;
+
+
+num_A = 100000;
+series_AR = NaN(num_A, series_length);
+a_AR = linspace(0, 1, num_A);
+
+load("computed100k")
+
+
+% figure
+% binscatter(AC1_matrix_abs, AMI1_matrix, [250 100])
+% xlabel("AC1")
+% ylabel("AMI1")
+% title(sprintf("AC1 vs AMI1, %d series", num_A))
+% grid on
+
+binedAMI = AMI_in_bins(AC1_matrix_abs, AMI1_matrix, 250);
+figure
+bin1 = binedAMI{1};
+histogram(bin1, 10)
+kstest()

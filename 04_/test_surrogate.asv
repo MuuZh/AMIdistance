@@ -1,0 +1,29 @@
+clear
+close all
+
+eta_ar = 0.2;
+eta_tent = 0.03;
+
+a = 0.78;
+mu = 1.03;
+N_length = 20000; % length of each generated series
+k_length = 1000; % length of first k data points to be removed
+test_tent = gen_tent_p(N_length,k_length,mu, eta_tent);
+surrogate_tent = generate_surrogate_iaaft(test_tent);
+plot(test_tent)
+hold on 
+plot(surrogate_tent)
+
+
+nbins = 30;
+figure
+histogram(test_tent,nbins)
+hold on
+histogram(surrogate_tent,nbins)
+
+
+x = test_tent;
+figure
+p_tent = periodogram(x,rectwin(length(x)),length(x))
+x = surrogate_tent;
+p_surr_tent = periodogram(x,rectwin(length(x)),length(x))
